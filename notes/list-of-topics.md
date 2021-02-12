@@ -1,0 +1,200 @@
+# Java Topics
+## Fundamentals
+- Features, benefits, and drawbacks of the Java language
+    - WORA (write once, run anywhere)
+        - JDK has a compiler
+            - we are compiling our source code to bytecode
+        - We also have a JRE (which is included w/ the JDK)
+            - This has a JVM
+                - the JVM runs the bytecode
+                - different JVMs for different OSes
+                - But if there is a JVM available for our system, we can run Java programs that were developed on other OSes
+    - Backed by Oracle
+    - Rich APIs (Collections, other built-in runtime libraries)
+    - Object-oriented
+    - Strongly/strictly typed
+    - High level
+        - Easy to read syntax
+        - Memory is handled automatically
+    - Garbage collector
+        - removes objects that do not have any variable referencing them
+            - with the exception of String literals in the string pool
+    - Verbose
+- POJOs vs Bean
+- Stack vs Heap
+    - Heap is where objects are stored
+        - We have a special location in the heap called the string pool for string literals
+        - not all strings go into the string pool
+    - The stack is where variables are local to a method
+- Purpose and contents of the JDK, JRE, and JVM
+    - JDK (contains compiler, debugger, other dev tools) + JRE
+    - JRE (contains runtime libraries) + JVM
+    - JVM: used to execute compiled bytecode
+- main method signature and significance
+    - `public static void main(String[] args)`
+    - is the initial point of execution of our program
+    - JVM automatically calls this method
+    - from this method, we branch off to other parts of our application
+- compiling and executing Java code on the command line
+    - javac somefile.java: compiles the source code file, somefile.java, into a bytecode file, somefile.class
+    - java ClassName: "runs the class" by calling the main method inside that class
+- Primitive Data types
+    - boolean
+    - byte
+    - char
+    - short
+    - int
+    - long
+    - float
+    - double
+- Operators
+    - Arithmetic
+        - prefix and postfix operators (e.g. x++, ++x)
+    - logical
+    - ternary
+- Scopes of variables
+    - static
+    - instance
+    - method
+    - block
+- Control flow statements
+    - for loop
+    - enhanced for loop
+    - while loop
+    - do-while loop
+    - if/else
+    - switch
+- Class members
+    - Fields (instance / static variables)
+    - Methods (instance / static methods)
+    - Constructors
+        - no-args
+            - inserted by default if no other constructors are specified
+            - if another constructor is defined, we need to define this one ourselves if we want it
+        - parameterized
+            - contain parameters, usually used to set values at instantiation of an object
+        - copy
+            - creates a new object with the same properties as another object
+- Access Modifiers
+    - public: accessible anywhere
+    - protected: accessible inside the same package or any subclasses that exist outside the package
+    - default: inside the same package
+    - private: inside the same class only
+- Nonaccess modifiers
+    - static: used for variables and methods. If they are static, that means they belong to the class itself. static variables would be accessible directly by ClassName.variablename. Any objects of that class would share the same variable between them.
+    - final: used for classes, methods, and variables.
+        - final classes cannot be extended
+        - final methods cannot be overridden
+        - final variables cannot be reassigned to another value
+    - abstract
+        - declares a method as abstract with no implementation
+        - or declares a class as abstract
+- Packages and imports
+    - what packages are for
+    - why we need to import classes
+    - static imports
+- this and super keywords
+    - "method invocation" (super() and this())
+        - this() used for constructor chaining
+        - super() used to call constructors in parent
+    - this.<> used to access a member of "this object"
+    - super.<> used to access a member of "this object" defined in the parent class
+- JRE library classes
+    - Object class: very important to remember about
+        - is the root of all classes
+        - equals() method
+        - hashCode() method
+        - toString() method
+        - know what those methods are used for, especially when we override them in our own classes
+    - System (System.out.println, System.in)
+    - String
+    - StringBuilder v. StringBuffer
+        - StringBuilder not thread-safe
+            - Faster
+        - StringBuffer is thread-safe
+            - Slower
+    - Collection v. Collections
+        - Collections is a utility class
+            - utility classes: contain only static methods that might be helpful to us
+                - for example, Collections.sort(List<> ...)
+    - Arrays (utility class)
+        - Arrays.toString(arr) to print out elements from the array
+            - toString in this case is a static method
+                - not to be confused with toString from the object class, which is something we override and is an instance method
+    - Wrapper classes
+        - Autoboxing / unboxing - primitive to wrapper / wrapper to primitive automatic conversion
+        - Big reason of using wrapper classes is to be able to store "primitives" inside different Collections
+            - Collections cannot store primitives, only objects
+- Varargs
+    - go at the end of a method's parameter list
+    - treated as an array
+
+# OOP
+- OOP Principles
+    - good acronym to remember: "APIE"
+    - Abstraction
+        - Abstract classes
+        - Interfaces
+    - Polymorphism
+        - Method Overriding (runtime polymorphism)
+        - Method Overloading (compile-time polymorphism)
+    - Inheritance
+        - can extend only one class
+        - can implement multiple interfaces
+        - inheritance creates a hierarchy
+    - Encapsulation
+        - Using access modifiers with getters/setters
+- objects v. classes
+    - classes are blueprints
+    - objects are actual instances being created
+- Abstract classes
+    - difference between abstract and concrete classes
+- Interfaces
+    - implicit modifiers for variables and methods
+        - `public abstract` for instance methods
+        - `public static final` for variables
+    - when to use interfaces instead of abstract classes
+        - for example we can implement multiple interfaces, but only 1 abstract class
+
+# Collections
+- Collections API
+    - Inheritance hierarchy
+    - List, Set, Map, Queue interfaces and some of the differences between these data structures
+    - Collection interface v. Collections class (utility class)
+    - Concrete implementations and their differences
+        - TreeMap vs HashMap
+        - HashSet vs TreeSet
+        - ArrayList vs LinkedList
+    - using enhanced for loops
+    - using iterators
+
+# Annotations
+- `@Override`
+- `@Deprecated`
+- `@SuppressWarnings`
+- etc.
+
+# Generics
+- parameterized types
+- often used with different collections
+
+# Exceptions
+- Know the hierarchy
+    - Throwable class
+        - Error class: things you cannot recover from.. like running out of memory or StackOverflow
+        - Exception class: events that occur at runtime
+            - RuntimeException class
+                - unchecked exceptions
+            - checked exceptions
+    - Handling v. declaring exceptions
+        - handling: try-catch
+        - `throws`
+    - throw v. throws
+    - try-catch-finally / try-finally, etc
+        - rules for multiple catch blocks
+            - most specific exceptions go first
+        - finally is optional
+    - Creating custom exceptions
+        - can extend Exception to make a checked exception
+        - can extend RuntimeException to make an unchecked exception
+
