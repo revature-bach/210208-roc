@@ -199,10 +199,22 @@ ORDER BY s.last_name; -- ORDER BY clause goes last
 -- Using SET operations to return users who do not have a first_name starting with J
 (SELECT *
 FROM users)
-EXCEPT
+
+UNION
+
 (SELECT *
 FROM users u
-WHERE u.first_name LIKE 'J%')
+WHERE u.first_name LIKE 'J%');
 
+SELECT *
+FROM users u
+WHERE u.first_name NOT LIKE 'J%';
 
+SELECT *
+FROM users;
+
+SELECT *
+FROM posts;
+
+SELECT * FROM sql_demo.users WHERE username = 'abc123';
 

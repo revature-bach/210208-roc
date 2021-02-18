@@ -244,6 +244,18 @@ Whenever we perform modifications to the data in our database, we are utilizing 
 - **Isolation**: If we have two transactions occurring at the same time (concurrency) and they are working on the same data, we shoudl not have one transaction disturbing the other. Isolation essentially gives us some guarantee that concurrently running transactions do not affect one another.
 - **Durability**: When a transaction is complete (has been committed), the changes should be persisted to the database. Even if our system were to lose power or be shut off, the changes will still be there in permanent memory.
 
+# Isolation Levels
+This is related to the I in the ACID properties. It refers to the degree in which two transactions will interfere with each other when modifying the same data.
+- When applications become more complex and more traffic and modifications are made to the database concurrently, we need to account for interference issues.
+- The more strict our isolation level, the more careful the system is about avoiding conflicts, but this could cause performance issues since concurrency would decrease with a more strict level
+
+| Isolation Level | Dirty Read | Non-repeatable Read | Phantom Read |
+| :------ | :------ | :------- | :---------- | 
+| Read Uncommitted | Y | Y | Y |
+| Read Committed | N | Y | Y |
+| Repeatable Read | N | N | Y |
+| Serializable | N | N | N |
+
 # Database Joins
 - Joins are operations that allow us to "join" data together from different tables
 - Useful when retrieving data based on the relationships between tables
