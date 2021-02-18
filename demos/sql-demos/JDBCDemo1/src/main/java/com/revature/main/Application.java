@@ -31,8 +31,8 @@ public class Application {
 //			System.out.println(e.getMessage());
 //		}
 		
-		User user = new User("user12345", "Jane", "Smith");
-		dao.insertUser(user);
+//		User user = new User("user12345", "Jane", "Smith");
+//		dao.insertUser(user);
 		
 		System.out.println(dao.getAllUsers());
 	}
