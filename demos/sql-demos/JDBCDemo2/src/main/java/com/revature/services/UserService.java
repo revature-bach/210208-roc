@@ -24,21 +24,21 @@ public class UserService {
 	}
 	
 	public User getUserByUsername(String username) throws UserNotFoundException, SQLException {
-		User user;
-		
-		Connection con = ConnectionUtil.getConnection();
-		user = userDAO.getUserByUsername(username, con);
-		
-		if (user == null) {
-			throw new UserNotFoundException("User with username '" + username + "' was not found!");
+		try (Connection con = ConnectionUtil.getConnection()) {
+			User user;
+			
+			user = userDAO.getUserByUsername(username, con);
+			
+			if (user == null) {
+				throw new UserNotFoundException("User with username '" + username + "' was not found!");
+			}
+			
+			List<Post> userPosts = postDAO.getPostsByUsername(username, con);
+			
+			user.setPosts(userPosts);
+			
+			return user;
 		}
-		
-		List<Post> userPosts = postDAO.getPostsByUsername(username, con);
-		
-		user.setPosts(userPosts);
-		
-		con.close();
-		return user;
 	}
 	
 }

@@ -48,7 +48,7 @@ public class UserMenu implements Menu {
 		} while(choice != 1);
 	}
 
-	public String getUsernameInput() {
+	private String getUsernameInput() {
 		System.out.println("Enter a username that you would like to lookup: ");
 		String input = Menu.sc.nextLine().trim();
 		

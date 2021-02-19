@@ -23,18 +23,33 @@ public class PostService {
 	}
 	
 	public Post createPost(String username, Post post) throws SQLException, UserNotFoundException {
-		Connection con = ConnectionUtil.getConnection();
-		con.setAutoCommit(false); // By default, autocommit is on, so here I'm turning it off so I can control it myself
-		
-		User user = userDAO.getUserByUsername(username, con);
-		
-		if (user == null) {
-			throw new UserNotFoundException("User with username '" + username + "' was not found!");
+		try (Connection con = ConnectionUtil.getConnection()) {
+			con.setAutoCommit(false); // By default, autocommit is on, so here I'm turning it off so I can control it myself
+			
+			User user = userDAO.getUserByUsername(username, con);
+			
+			if (user == null) {
+				throw new UserNotFoundException("User with username '" + username + "' was not found!");
+			}
+			
+			Post postWithID = postDAO.insertPost(post, con, username);
+			
+			con.commit();
+			
+			return postWithID;
 		}
-		
-		Post postWithID = postDAO.insertPost(post, con, username);
-		
-		return postWithID;
 	}
+	
+	// Example of utilizing transactions
+	// Here I have my connection object outside in my service method
+	// In the case of a bank transfer
+	// I might utilize two different methods inside my DAO layer
+	// 1. withdraw from sending account
+	// 2. deposit to receiving account
+	// so you want to be able to handle these two operations as a single transaction
+	// I can do this, by passing the same connection object into each of these operations
+	// and then at the very end, I can commit the transaction.. or con.rollback() if some sort of unallowed condition
+	// occurs
+	
 	
 }
