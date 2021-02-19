@@ -1,7 +1,10 @@
 package com.revature.main;
 
+import java.sql.SQLException;
+
 import com.revature.ui.MainMenu;
 import com.revature.ui.Menu;
+import com.revature.util.ConnectionUtil;
 
 public class Application {
 
@@ -14,6 +17,7 @@ public class Application {
 		// So we can close our scanner
 		Menu.sc.close();
 		System.out.println("Application closing!");
+		
 	}
 
 }
