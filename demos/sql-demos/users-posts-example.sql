@@ -218,3 +218,8 @@ FROM posts;
 
 SELECT * FROM sql_demo.users WHERE username = 'abc123';
 
+SELECT * 
+FROM posts
+WHERE "user" = 'hello123';
+
+
